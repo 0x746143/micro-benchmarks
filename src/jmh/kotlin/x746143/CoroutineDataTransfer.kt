@@ -73,7 +73,7 @@ open class CoroutineDataTransfer {
 
     @OperationsPerInvocation(TIMES)
     @Benchmark
-    fun coroutine_and_Transfer_using_a_Channel_a_DefaultLaunch() = runBlocking {
+    fun creation_and_Transfer_using_a_Channel_a_DefaultLaunch() = runBlocking {
         val result = reusableBuffer
         repeat(times) {
             launch {
@@ -87,7 +87,7 @@ open class CoroutineDataTransfer {
 
     @OperationsPerInvocation(TIMES)
     @Benchmark
-    fun coroutine_and_Transfer_using_a_Channel_b_UndispLaunch() = runBlocking {
+    fun creation_and_Transfer_using_a_Channel_b_UndispLaunch() = runBlocking {
         val result = reusableBuffer
         repeat(times) {
             launch(start = CoroutineStart.UNDISPATCHED) {
@@ -102,7 +102,7 @@ open class CoroutineDataTransfer {
 
     @OperationsPerInvocation(TIMES)
     @Benchmark
-    fun coroutine_and_Transfer_using_a_Channel_c_UnconfLaunch() = runBlocking {
+    fun creation_and_Transfer_using_a_Channel_c_UnconfLaunch() = runBlocking {
         val result = reusableBuffer
         repeat(times) {
             launch(Dispatchers.Unconfined) {
@@ -116,7 +116,7 @@ open class CoroutineDataTransfer {
 
     @OperationsPerInvocation(TIMES)
     @Benchmark
-    fun coroutine_and_Transfer_using_a_Channel_d_UnconfUndispLaunch() = runBlocking {
+    fun creation_and_Transfer_using_a_Channel_d_UnconfUndispLaunch() = runBlocking {
         val result = reusableBuffer
         repeat(times) {
             launch(Dispatchers.Unconfined, CoroutineStart.UNDISPATCHED) {
@@ -130,7 +130,7 @@ open class CoroutineDataTransfer {
 
     @OperationsPerInvocation(TIMES)
     @Benchmark
-    fun coroutine_and_Transfer_using_a_Channel_e_UnintCoroutine() = runBlocking {
+    fun creation_and_Transfer_using_a_Channel_e_UnintCoroutine() = runBlocking {
         val result = reusableBuffer
         repeat(times) {
             startUninterceptedCoroutine {
@@ -146,7 +146,7 @@ open class CoroutineDataTransfer {
 
     @OperationsPerInvocation(TIMES)
     @Benchmark
-    fun coroutine_and_Transfer_using_b_IntCont_a_DefaultLaunch() = runBlocking {
+    fun creation_and_Transfer_using_b_IntCont_a_DefaultLaunch() = runBlocking {
         val result = reusableBuffer
         repeat(times) {
             lateinit var cont: Continuation<Int>
@@ -162,7 +162,7 @@ open class CoroutineDataTransfer {
 
     @OperationsPerInvocation(TIMES)
     @Benchmark
-    fun coroutine_and_Transfer_using_b_IntCont_b_UndispLaunch() = runBlocking {
+    fun creation_and_Transfer_using_b_IntCont_b_UndispLaunch() = runBlocking {
         val result = reusableBuffer
         repeat(times) {
             lateinit var cont: Continuation<Int>
@@ -178,7 +178,7 @@ open class CoroutineDataTransfer {
 
     @OperationsPerInvocation(TIMES)
     @Benchmark
-    fun coroutine_and_Transfer_using_b_IntCont_c_UnconfLaunch() = runBlocking {
+    fun creation_and_Transfer_using_b_IntCont_c_UnconfLaunch() = runBlocking {
         val result = reusableBuffer
         repeat(times) {
             lateinit var cont: Continuation<Int>
@@ -193,7 +193,7 @@ open class CoroutineDataTransfer {
 
     @OperationsPerInvocation(TIMES)
     @Benchmark
-    fun coroutine_and_Transfer_using_b_IntCont_d_UnconfUndispLaunch() = runBlocking {
+    fun creation_and_Transfer_using_b_IntCont_d_UnconfUndispLaunch() = runBlocking {
         val result = reusableBuffer
         repeat(times) {
             lateinit var cont: Continuation<Int>
@@ -208,7 +208,7 @@ open class CoroutineDataTransfer {
 
     @OperationsPerInvocation(TIMES)
     @Benchmark
-    fun coroutine_and_Transfer_using_b_IntCont_e_UnintCoroutine() = runBlocking {
+    fun creation_and_Transfer_using_b_IntCont_e_UnintCoroutine() = runBlocking {
         val result = reusableBuffer
         repeat(times) {
             lateinit var cont: Continuation<Int>
@@ -225,7 +225,7 @@ open class CoroutineDataTransfer {
 
     @OperationsPerInvocation(TIMES)
     @Benchmark
-    fun coroutine_and_Transfer_using_c_UnintCont_a_DefaultLaunch() = runBlocking {
+    fun creation_and_Transfer_using_c_UnintCont_a_DefaultLaunch() = runBlocking {
         val result = reusableBuffer
         repeat(times) {
             lateinit var cont: Continuation<Int>
@@ -244,7 +244,7 @@ open class CoroutineDataTransfer {
 
     @OperationsPerInvocation(TIMES)
     @Benchmark
-    fun coroutine_and_Transfer_using_c_UnintCont_b_UndispLaunch() = runBlocking {
+    fun creation_and_Transfer_using_c_UnintCont_b_UndispLaunch() = runBlocking {
         val result = reusableBuffer
         repeat(times) {
             lateinit var cont: Continuation<Int>
@@ -262,7 +262,7 @@ open class CoroutineDataTransfer {
 
     @OperationsPerInvocation(TIMES)
     @Benchmark
-    fun coroutine_and_Transfer_using_c_UnintCont_c_UnconfLaunch() = runBlocking {
+    fun creation_and_Transfer_using_c_UnintCont_c_UnconfLaunch() = runBlocking {
         val result = reusableBuffer
         repeat(times) {
             lateinit var cont: Continuation<Int>
@@ -280,7 +280,7 @@ open class CoroutineDataTransfer {
 
     @OperationsPerInvocation(TIMES)
     @Benchmark
-    fun coroutine_and_Transfer_using_c_UnintCont_d_UnconfUndispLaunch() = runBlocking {
+    fun creation_and_Transfer_using_c_UnintCont_d_UnconfUndispLaunch() = runBlocking {
         val result = reusableBuffer
         repeat(times) {
             lateinit var cont: Continuation<Int>
@@ -298,7 +298,7 @@ open class CoroutineDataTransfer {
 
     @OperationsPerInvocation(TIMES)
     @Benchmark
-    fun coroutine_and_Transfer_using_c_UnintCont_e_UnintCoroutine() = runBlocking {
+    fun creation_and_Transfer_using_c_UnintCont_e_UnintCoroutine() = runBlocking {
         val result = reusableBuffer
         repeat(times) {
             lateinit var cont: Continuation<Int>
@@ -606,24 +606,24 @@ open class CoroutineDataTransfer {
 }
 
 /*
-Benchmark                                                                            Mode  Cnt    Score    Error  Units
-CoroutineDataTransfer.coroutine_and_Transfer_using_a_Channel_a_DefaultLaunch         avgt   16  390.664 ± 1.417  ns/op
-CoroutineDataTransfer.coroutine_and_Transfer_using_a_Channel_b_UndispLaunch          avgt   16  422.170 ± 1.671  ns/op
-CoroutineDataTransfer.coroutine_and_Transfer_using_a_Channel_c_UnconfLaunch          avgt   16  371.306 ± 1.322  ns/op
-CoroutineDataTransfer.coroutine_and_Transfer_using_a_Channel_d_UnconfUndispLaunch    avgt   16  375.238 ± 0.718  ns/op
-CoroutineDataTransfer.coroutine_and_Transfer_using_a_Channel_e_UnintCoroutine        avgt   16  109.035 ± 0.869  ns/op
+Benchmark                                                                            Mode  Cnt    Score   Error  Units
+CoroutineDataTransfer.creation_and_Transfer_using_a_Channel_a_DefaultLaunch          avgt   16  390.664 ± 1.417  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_a_Channel_b_UndispLaunch           avgt   16  422.170 ± 1.671  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_a_Channel_c_UnconfLaunch           avgt   16  371.306 ± 1.322  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_a_Channel_d_UnconfUndispLaunch     avgt   16  375.238 ± 0.718  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_a_Channel_e_UnintCoroutine         avgt   16  109.035 ± 0.869  ns/op
 
-CoroutineDataTransfer.coroutine_and_Transfer_using_b_IntCont_a_DefaultLaunch         avgt   16  354.374 ± 4.870  ns/op
-CoroutineDataTransfer.coroutine_and_Transfer_using_b_IntCont_b_UndispLaunch          avgt   16  330.791 ± 2.895  ns/op
-CoroutineDataTransfer.coroutine_and_Transfer_using_b_IntCont_c_UnconfLaunch          avgt   16  226.415 ± 0.533  ns/op
-CoroutineDataTransfer.coroutine_and_Transfer_using_b_IntCont_d_UnconfUndispLaunch    avgt   16  234.824 ± 0.943  ns/op
-CoroutineDataTransfer.coroutine_and_Transfer_using_b_IntCont_e_UnintCoroutine        avgt   16   31.696 ± 0.592  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_b_IntCont_a_DefaultLaunch          avgt   16  354.374 ± 4.870  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_b_IntCont_b_UndispLaunch           avgt   16  330.791 ± 2.895  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_b_IntCont_c_UnconfLaunch           avgt   16  226.415 ± 0.533  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_b_IntCont_d_UnconfUndispLaunch     avgt   16  234.824 ± 0.943  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_b_IntCont_e_UnintCoroutine         avgt   16   31.696 ± 0.592  ns/op
 
-CoroutineDataTransfer.coroutine_and_Transfer_using_c_UnintCont_a_DefaultLaunch       avgt   16  298.261 ± 0.872  ns/op
-CoroutineDataTransfer.coroutine_and_Transfer_using_c_UnintCont_b_UndispLaunch        avgt   16  151.751 ± 0.537  ns/op
-CoroutineDataTransfer.coroutine_and_Transfer_using_c_UnintCont_c_UnconfLaunch        avgt   16  207.505 ± 1.493  ns/op
-CoroutineDataTransfer.coroutine_and_Transfer_using_c_UnintCont_d_UnconfUndispLaunch  avgt   16  189.147 ± 0.516  ns/op
-CoroutineDataTransfer.coroutine_and_Transfer_using_c_UnintCont_e_UnintCoroutine      avgt   16   11.857 ± 0.160  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_c_UnintCont_a_DefaultLaunch        avgt   16  298.261 ± 0.872  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_c_UnintCont_b_UndispLaunch         avgt   16  151.751 ± 0.537  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_c_UnintCont_c_UnconfLaunch         avgt   16  207.505 ± 1.493  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_c_UnintCont_d_UnconfUndispLaunch   avgt   16  189.147 ± 0.516  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_c_UnintCont_e_UnintCoroutine       avgt   16   11.857 ± 0.160  ns/op
 
 CoroutineDataTransfer.transfer_using_a_Channel_a_DefaultLaunch                       avgt   16  178.415 ± 1.107  ns/op
 CoroutineDataTransfer.transfer_using_a_Channel_b_UndispLaunch                        avgt   16  178.482 ± 0.717  ns/op
