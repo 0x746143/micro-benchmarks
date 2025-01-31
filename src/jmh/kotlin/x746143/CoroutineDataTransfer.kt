@@ -43,7 +43,9 @@ open class CoroutineDataTransfer {
     // similar to running them in a Netty event loop
 
     companion object {
-        private const val TIMES = 1000
+        // If the `times` value is less than 10000
+        // then the `runBlocking` calls affect test results
+        private const val TIMES = 10000
     }
 
     var times = TIMES
