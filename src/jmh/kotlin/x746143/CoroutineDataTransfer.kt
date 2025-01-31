@@ -31,7 +31,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @Suppress("FunctionName", "unused")
-@Fork(4)
+@Fork(3)
 @Threads(1)
 @State(Scope.Thread)
 @BenchmarkMode(Mode.AverageTime)
@@ -640,39 +640,42 @@ open class CoroutineDataTransfer {
 
 /*
 Benchmark                                                                            Mode  Cnt    Score   Error  Units
-CoroutineDataTransfer.creation_and_Transfer_using_a_Channel_a_DefaultLaunch          avgt   16  390.664 ± 1.417  ns/op
-CoroutineDataTransfer.creation_and_Transfer_using_a_Channel_b_UndispLaunch           avgt   16  422.170 ± 1.671  ns/op
-CoroutineDataTransfer.creation_and_Transfer_using_a_Channel_c_UnconfLaunch           avgt   16  371.306 ± 1.322  ns/op
-CoroutineDataTransfer.creation_and_Transfer_using_a_Channel_d_UnconfUndispLaunch     avgt   16  375.238 ± 0.718  ns/op
-CoroutineDataTransfer.creation_and_Transfer_using_a_Channel_e_UnintCoroutine         avgt   16  109.035 ± 0.869  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_a_Channel_a_DefaultLaunch          avgt   16  378.519 ± 1.763  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_a_Channel_b_UndispLaunch           avgt   16  421.279 ± 1.416  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_a_Channel_c_UnconfLaunch           avgt   16  371.008 ± 4.203  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_a_Channel_d_UnconfUndispLaunch     avgt   16  376.538 ± 1.066  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_a_Channel_e_UnintCoroutine         avgt   16  125.002 ± 1.061  ns/op
 
-CoroutineDataTransfer.creation_and_Transfer_using_b_IntCont_a_DefaultLaunch          avgt   16  354.374 ± 4.870  ns/op
-CoroutineDataTransfer.creation_and_Transfer_using_b_IntCont_b_UndispLaunch           avgt   16  330.791 ± 2.895  ns/op
-CoroutineDataTransfer.creation_and_Transfer_using_b_IntCont_c_UnconfLaunch           avgt   16  226.415 ± 0.533  ns/op
-CoroutineDataTransfer.creation_and_Transfer_using_b_IntCont_d_UnconfUndispLaunch     avgt   16  234.824 ± 0.943  ns/op
-CoroutineDataTransfer.creation_and_Transfer_using_b_IntCont_e_UnintCoroutine         avgt   16   31.696 ± 0.592  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_b_IntCont_a_DefaultLaunch          avgt   16  349.024 ± 3.800  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_b_IntCont_b_UndispLaunch           avgt   16  333.337 ± 5.883  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_b_IntCont_c_UnconfLaunch           avgt   16  225.347 ± 1.917  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_b_IntCont_d_UnconfUndispLaunch     avgt   16  254.244 ± 9.685  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_b_IntCont_e_UnintCoroutine         avgt   16   31.648 ± 1.019  ns/op
 
-CoroutineDataTransfer.creation_and_Transfer_using_c_UnintCont_a_DefaultLaunch        avgt   16  298.261 ± 0.872  ns/op
-CoroutineDataTransfer.creation_and_Transfer_using_c_UnintCont_b_UndispLaunch         avgt   16  151.751 ± 0.537  ns/op
-CoroutineDataTransfer.creation_and_Transfer_using_c_UnintCont_c_UnconfLaunch         avgt   16  207.505 ± 1.493  ns/op
-CoroutineDataTransfer.creation_and_Transfer_using_c_UnintCont_d_UnconfUndispLaunch   avgt   16  189.147 ± 0.516  ns/op
-CoroutineDataTransfer.creation_and_Transfer_using_c_UnintCont_e_UnintCoroutine       avgt   16   11.857 ± 0.160  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_c_UnintCont_a_DefaultLaunch        avgt   16  298.477 ± 1.724  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_c_UnintCont_b_UndispLaunch         avgt   16  130.717 ± 0.575  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_c_UnintCont_c_UnconfLaunch         avgt   16  206.223 ± 1.647  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_c_UnintCont_d_UnconfUndispLaunch   avgt   16  189.319 ± 1.390  ns/op
+CoroutineDataTransfer.creation_and_Transfer_using_c_UnintCont_e_UnintCoroutine       avgt   16   11.016 ± 1.463  ns/op
 
-CoroutineDataTransfer.transfer_using_a_Channel_a_DefaultLaunch                       avgt   16  178.415 ± 1.107  ns/op
-CoroutineDataTransfer.transfer_using_a_Channel_b_UndispLaunch                        avgt   16  178.482 ± 0.717  ns/op
-CoroutineDataTransfer.transfer_using_a_Channel_c_UnconfLaunch                        avgt   16  117.871 ± 0.794  ns/op
-CoroutineDataTransfer.transfer_using_a_Channel_d_UnconfUndispLaunch                  avgt   16  116.784 ± 0.575  ns/op
-CoroutineDataTransfer.transfer_using_a_Channel_e_UnintCoroutine                      avgt   16  107.526 ± 1.074  ns/op
+CoroutineDataTransfer.transfer_using_a_Channel_a_DefaultLaunch                       avgt   16  177.241 ± 0.683  ns/op
+CoroutineDataTransfer.transfer_using_a_Channel_b_UndispLaunch                        avgt   16  177.198 ± 0.921  ns/op
+CoroutineDataTransfer.transfer_using_a_Channel_c_UnconfLaunch                        avgt   16  121.288 ± 2.868  ns/op
+CoroutineDataTransfer.transfer_using_a_Channel_d_UnconfUndispLaunch                  avgt   16  116.066 ± 2.637  ns/op
+CoroutineDataTransfer.transfer_using_a_Channel_e_UnintCoroutine                      avgt   16  106.929 ± 1.173  ns/op
 
-CoroutineDataTransfer.transfer_using_b_IntCont_a_DefaultLaunch                       avgt   16   89.336 ± 1.105  ns/op
-CoroutineDataTransfer.transfer_using_b_IntCont_b_UndispLaunch                        avgt   16   89.104 ± 0.673  ns/op
-CoroutineDataTransfer.transfer_using_b_IntCont_c_UnconfLaunch                        avgt   16   29.988 ± 0.094  ns/op
-CoroutineDataTransfer.transfer_using_b_IntCont_d_UnconfUndispLaunch                  avgt   16   30.861 ± 1.328  ns/op
-CoroutineDataTransfer.transfer_using_b_IntCont_e_UnintCoroutine                      avgt   16   27.976 ± 0.277  ns/op
+CoroutineDataTransfer.transfer_using_b_IntCont_a_DefaultLaunch                       avgt   16   87.450 ± 1.548  ns/op
+CoroutineDataTransfer.transfer_using_b_IntCont_b_UndispLaunch                        avgt   16   86.644 ± 0.498  ns/op
+CoroutineDataTransfer.transfer_using_b_IntCont_c_UnconfLaunch                        avgt   16   28.244 ± 0.713  ns/op
+CoroutineDataTransfer.transfer_using_b_IntCont_d_UnconfUndispLaunch                  avgt   16   28.810 ± 0.785  ns/op
+CoroutineDataTransfer.transfer_using_b_IntCont_e_UnintCoroutine                      avgt   16   26.649 ± 0.137  ns/op
 
-CoroutineDataTransfer.transfer_using_c_UnintCont_a_DefaultLaunch                     avgt   16   10.130 ± 0.055  ns/op
-CoroutineDataTransfer.transfer_using_c_UnintCont_b_UndispLaunch                      avgt   16    9.217 ± 0.040  ns/op
-CoroutineDataTransfer.transfer_using_c_UnintCont_c_UnconfLaunch                      avgt   16    9.448 ± 0.320  ns/op
-CoroutineDataTransfer.transfer_using_c_UnintCont_d_UnconfUndispLaunch                avgt   16    9.635 ± 0.256  ns/op
-CoroutineDataTransfer.transfer_using_c_UnintCont_e_UnintCoroutine                    avgt   16    9.013 ± 0.029  ns/op
+CoroutineDataTransfer.transfer_using_c_UnintCont_a_DefaultLaunch                     avgt   16    8.285 ± 0.334  ns/op
+CoroutineDataTransfer.transfer_using_c_UnintCont_b_UndispLaunch                      avgt   16    8.376 ± 0.051  ns/op
+CoroutineDataTransfer.transfer_using_c_UnintCont_c_UnconfLaunch                      avgt   16    8.449 ± 0.277  ns/op
+CoroutineDataTransfer.transfer_using_c_UnintCont_d_UnconfUndispLaunch                avgt   16    8.412 ± 0.527  ns/op
+CoroutineDataTransfer.transfer_using_c_UnintCont_e_UnintCoroutine                    avgt   16    8.465 ± 0.482  ns/op
+
+CoroutineDataTransfer.transfer_using_d_callbackQueue                                 avgt   16   10.262 ± 0.646  ns/op
+CoroutineDataTransfer.jvmOptimizationVerifier                                        avgt   16    7.097 ± 0.528  ns/op
 */
