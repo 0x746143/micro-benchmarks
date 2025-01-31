@@ -18,6 +18,7 @@ package x746143
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import org.openjdk.jmh.annotations.*
+import org.openjdk.jmh.infra.Blackhole
 import java.nio.ByteBuffer
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.*
@@ -606,12 +607,30 @@ open class CoroutineDataTransfer {
         return result
     }
 
+    // This test is used to make sure that JVM doesn't apply any undesirable optimizations
+    // related to the loop `repeat(times)` in `transfer_using_c_UnintCont_e_UnintCoroutine`
+    // test and other Unintercepted Continuation tests. The results of the current test
+    // should be lower than the results of `transfer_using_c_UnintCont_e_UnintCoroutine`.
+    @Benchmark
+    fun jvmOptimizationVerifier(bl: Blackhole) {
+        lateinit var cont: Continuation<Int>
+        startUninterceptedCoroutine {
+            val charCode = suspendCoroutineUninterceptedOrReturn {
+                cont = it
+                COROUTINE_SUSPENDED
+            }
+            bl.consume((firstLetter + charCode).code.toByte())
+        }
+        cont.resume(times % numberOfLetters)
+    }
+
     @Test
     fun testCoroutineDataTransfer() {
         val expected = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
         times = expected.length
         this::class.functions
             .filter { it.hasAnnotation<Benchmark>() }
+            .filter { it.name != "jvmOptimizationVerifier" }
             .forEach {
                 val actual = with(it.call(this) as ByteBuffer) { String(array(), 0, position()) }
                 assertEquals(expected, actual, it.name)
