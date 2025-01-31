@@ -592,6 +592,18 @@ open class CoroutineDataTransfer {
         result
     }
 
+    private var callbackQueue = ArrayDeque<(Int) -> Unit>()
+    @OperationsPerInvocation(TIMES)
+    @Benchmark
+    fun transfer_using_d_callbackQueue(): ByteBuffer {
+        val result = reusableBuffer
+        repeat(times) {
+            callbackQueue.addLast { charCode -> result.put((firstLetter + charCode).code.toByte()) }
+            callbackQueue.removeFirst()(result.position() % numberOfLetters)
+        }
+        return result
+    }
+
     @Test
     fun testCoroutineDataTransfer() {
         val expected = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
