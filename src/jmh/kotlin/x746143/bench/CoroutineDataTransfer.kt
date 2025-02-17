@@ -38,7 +38,7 @@ import kotlin.test.assertEquals
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 @Warmup(iterations = 4, time = 2, timeUnit = TimeUnit.SECONDS)
 @Measurement(iterations = 4, time = 2, timeUnit = TimeUnit.SECONDS)
-open class CoroutineDataTransfer {
+class CoroutineDataTransfer {
 
     // These benchmarks use coroutines in a single-threaded mode,
     // similar to running them in a Netty event loop

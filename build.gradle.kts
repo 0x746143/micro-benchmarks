@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "2.1.10"
     id("me.champeau.jmh") version "0.7.2"
+    kotlin("plugin.allopen") version "2.1.10"
 }
 
 group = "x746143"
@@ -23,4 +24,8 @@ tasks.test {
 
 kotlin {
     jvmToolchain(22)
+}
+
+allOpen {
+    annotation("org.openjdk.jmh.annotations.State")
 }
