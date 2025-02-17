@@ -14,6 +14,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
     implementation(kotlin("reflect"))
     testImplementation(kotlin("test"))
+    jmh("org.jetbrains.kotlin:kotlin-test-junit5")
 }
 
 tasks.test {
