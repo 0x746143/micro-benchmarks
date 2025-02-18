@@ -86,7 +86,6 @@ tasks.register<ExecCommand>("compileJmhNative") {
                 "gcc", "-shared", "-fPIC", "-O3", "-flto",
                 "-I$javaHome/include",
                 "-I$javaHome/include/linux",
-                "-I$sourceDir/openjdk/libjava",
                 "-o", outFile, srcFile
             )
         }
