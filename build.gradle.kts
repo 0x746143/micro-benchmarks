@@ -31,6 +31,7 @@ allOpen {
 }
 
 registerBenchmarkTask("CoroutineDataTransfer")
+registerBenchmarkTask("NativeCall")
 
 fun registerBenchmarkTask(className: String, vararg regex: String) {
     tasks.register<JavaExec>(className) {
