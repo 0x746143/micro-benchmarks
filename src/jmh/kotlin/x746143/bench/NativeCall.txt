@@ -1,0 +1,15 @@
+Benchmark                                Mode  Cnt   Score   Error  Units
+NativeCall.memcpyFfmAutoInvoke           avgt   16   9.967 ± 0.119  ns/op
+NativeCall.memcpyFfmAutoInvokeExact      avgt   16   9.765 ± 0.004  ns/op
+NativeCall.memcpyFfmConfinedInvoke       avgt   16  10.827 ± 0.017  ns/op
+NativeCall.memcpyFfmConfinedInvokeExact  avgt   16  10.556 ± 0.003  ns/op
+NativeCall.memcpyFfmGlobalInvoke         avgt   16   9.648 ± 0.138  ns/op
+NativeCall.memcpyFfmGlobalInvokeExact    avgt   16   9.506 ± 0.012  ns/op
+NativeCall.memcpyFfmSharedInvoke         avgt   16  22.174 ± 0.279  ns/op
+NativeCall.memcpyFfmSharedInvokeExact    avgt   16  22.025 ± 0.115  ns/op
+NativeCall.memcpyJniByAddress            avgt   16  12.709 ± 0.052  ns/op
+NativeCall.memcpyJniByAddressUnsafe      avgt   16   8.710 ± 0.005  ns/op
+NativeCall.memcpyJniByObject             avgt   16  40.997 ± 0.043  ns/op
+NativeCall.systemCallGetPidFfm           avgt   16  87.054 ± 0.281  ns/op
+NativeCall.systemCallGetPidFfmExact      avgt   16  86.560 ± 0.340  ns/op
+NativeCall.systemCallGetPidJni           avgt   16  86.056 ± 0.689  ns/op
