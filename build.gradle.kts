@@ -29,3 +29,27 @@ kotlin {
 allOpen {
     annotation("org.openjdk.jmh.annotations.State")
 }
+
+registerBenchmarkTask("CoroutineDataTransfer")
+
+fun registerBenchmarkTask(className: String, vararg regex: String) {
+    tasks.register<JavaExec>(className) {
+        val buildDir = project.layout.buildDirectory
+        val artifactName = "${project.name}-${project.version}-jmh.jar"
+        val jarFile = buildDir.dir("libs/$artifactName")
+        val resultFile = buildDir.dir("results/jmh/$className.txt").get()
+        dependsOn("jmhJar")
+        group = "benchmarks"
+        outputs.files(resultFile)
+        classpath = files(jarFile)
+        mainClass = "org.openjdk.jmh.Main"
+        args = mutableListOf<String>().apply {
+            if (regex.isEmpty()) {
+                add(className)
+            } else {
+                addAll(regex.map { "$className.*$it.*" })
+            }
+            addAll(listOf("-foe", "true", "-rf", "text", "-rff", resultFile.toString()))
+        }
+    }
+}
