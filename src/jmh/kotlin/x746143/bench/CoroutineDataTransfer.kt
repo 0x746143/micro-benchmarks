@@ -25,10 +25,6 @@ import kotlin.coroutines.*
 import kotlin.coroutines.intrinsics.COROUTINE_SUSPENDED
 import kotlin.coroutines.intrinsics.createCoroutineUnintercepted
 import kotlin.coroutines.intrinsics.suspendCoroutineUninterceptedOrReturn
-import kotlin.reflect.full.functions
-import kotlin.reflect.full.hasAnnotation
-import kotlin.test.Test
-import kotlin.test.assertEquals
 
 @Suppress("FunctionName", "unused")
 @Fork(3)
@@ -624,16 +620,4 @@ class CoroutineDataTransfer {
         cont.resume(times % numberOfLetters)
     }
 
-    @Test
-    fun testCoroutineDataTransfer() {
-        val expected = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
-        times = expected.length
-        this::class.functions
-            .filter { it.hasAnnotation<Benchmark>() }
-            .filter { it.name != "jvmOptimizationVerifier" }
-            .forEach {
-                val actual = with(it.call(this) as ByteBuffer) { String(array(), 0, position()) }
-                assertEquals(expected, actual, it.name)
-            }
-    }
 }
