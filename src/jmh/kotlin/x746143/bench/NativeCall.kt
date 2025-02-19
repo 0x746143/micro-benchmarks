@@ -50,21 +50,21 @@ class NativeCall {
 
     private val size = 8
     private val lsize = size.toLong()
-    private val srcBuffer = ByteBuffer.allocateDirect(size)
-    private val dstBuffer = ByteBuffer.allocateDirect(size)
+    val srcBuffer = ByteBuffer.allocateDirect(size)!!
+    val dstBuffer = ByteBuffer.allocateDirect(size)!!
 
     private val arenaGlobal = Arena.global()
     private val arenaAuto = Arena.ofAuto()
     private val arenaShared = Arena.ofShared()
     private val arenaConfined = Arena.ofConfined()
-    private val srcSegmentGlobal = arenaGlobal.allocate(lsize)
-    private val dstSegmentGlobal = arenaGlobal.allocate(lsize)
-    private val srcSegmentAuto = arenaAuto.allocate(lsize)
-    private val dstSegmentAuto = arenaAuto.allocate(lsize)
-    private val srcSegmentShared = arenaShared.allocate(lsize)
-    private val dstSegmentShared = arenaShared.allocate(lsize)
-    private val srcSegmentConfined = arenaConfined.allocate(lsize)
-    private val dstSegmentConfined = arenaConfined.allocate(lsize)
+    val srcSegmentGlobal = arenaGlobal.allocate(lsize)!!
+    val dstSegmentGlobal = arenaGlobal.allocate(lsize)!!
+    val srcSegmentAuto = arenaAuto.allocate(lsize)!!
+    val dstSegmentAuto = arenaAuto.allocate(lsize)!!
+    val srcSegmentShared = arenaShared.allocate(lsize)!!
+    val dstSegmentShared = arenaShared.allocate(lsize)!!
+    val srcSegmentConfined = arenaConfined.allocate(lsize)!!
+    val dstSegmentConfined = arenaConfined.allocate(lsize)!!
 
     @Benchmark
     fun systemCallGetPidJni(): Int {

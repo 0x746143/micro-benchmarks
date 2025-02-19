@@ -21,6 +21,12 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    jvmArgs(
+        "--enable-native-access=ALL-UNNAMED",
+        "--add-opens",
+        "java.base/java.nio=ALL-UNNAMED",
+        "-Djava.library.path=build/native"
+    )
 }
 
 kotlin {
