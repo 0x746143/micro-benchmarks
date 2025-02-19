@@ -16,21 +16,14 @@
 package x746143.bench
 
 import org.openjdk.jmh.annotations.*
-import sun.misc.Unsafe
 import java.lang.foreign.Arena
 import java.lang.foreign.FunctionDescriptor
-import java.lang.foreign.Linker
 import java.lang.foreign.MemorySegment
 import java.lang.foreign.ValueLayout.ADDRESS
 import java.lang.foreign.ValueLayout.JAVA_INT
-import java.lang.invoke.MethodHandle
-import java.lang.invoke.MethodHandles
-import java.lang.invoke.VarHandle
-import java.lang.reflect.Field
 import java.nio.Buffer
 import java.nio.ByteBuffer
 import java.util.concurrent.TimeUnit
-import kotlin.reflect.KClass
 
 @Suppress("unused")
 @Threads(1)
@@ -49,7 +42,7 @@ import kotlin.reflect.KClass
 class NativeCall {
     private val jniAdapter = JniAdapter()
     private val unsafe = getUnsafe()
-    private val fieldOffset = Buffer::class.getFieldOffset("address")
+    private val fieldOffset = Buffer::class.getFieldOffset("address", unsafe)
     private val addressHandle = Buffer::class.getVarHandle("address", Long::class.javaPrimitiveType)
 
     private val getpid = getNativeFuncHandle("getpid", FunctionDescriptor.of(JAVA_INT))
@@ -57,21 +50,21 @@ class NativeCall {
 
     private val size = 8
     private val lsize = size.toLong()
-    private var srcBuffer = ByteBuffer.allocateDirect(size)
-    private var dstBuffer = ByteBuffer.allocateDirect(size)
+    private val srcBuffer = ByteBuffer.allocateDirect(size)
+    private val dstBuffer = ByteBuffer.allocateDirect(size)
 
-    private var arenaGlobal = Arena.global()
-    private var arenaAuto = Arena.ofAuto()
-    private var arenaShared = Arena.ofShared()
-    private var arenaConfined = Arena.ofConfined()
-    private var srcSegmentGlobal = arenaGlobal.allocate(lsize)
-    private var dstSegmentGlobal = arenaGlobal.allocate(lsize)
-    private var srcSegmentAuto = arenaAuto.allocate(lsize)
-    private var dstSegmentAuto = arenaAuto.allocate(lsize)
-    private var srcSegmentShared = arenaShared.allocate(lsize)
-    private var dstSegmentShared = arenaShared.allocate(lsize)
-    private var srcSegmentConfined = arenaConfined.allocate(lsize)
-    private var dstSegmentConfined = arenaConfined.allocate(lsize)
+    private val arenaGlobal = Arena.global()
+    private val arenaAuto = Arena.ofAuto()
+    private val arenaShared = Arena.ofShared()
+    private val arenaConfined = Arena.ofConfined()
+    private val srcSegmentGlobal = arenaGlobal.allocate(lsize)
+    private val dstSegmentGlobal = arenaGlobal.allocate(lsize)
+    private val srcSegmentAuto = arenaAuto.allocate(lsize)
+    private val dstSegmentAuto = arenaAuto.allocate(lsize)
+    private val srcSegmentShared = arenaShared.allocate(lsize)
+    private val dstSegmentShared = arenaShared.allocate(lsize)
+    private val srcSegmentConfined = arenaConfined.allocate(lsize)
+    private val dstSegmentConfined = arenaConfined.allocate(lsize)
 
     @Benchmark
     fun systemCallGetPidJni(): Int {
@@ -156,30 +149,6 @@ class NativeCall {
     fun memcpyFfmConfinedInvokeExact(): MemorySegment {
         memcpy.invokeExact(dstSegmentConfined, srcSegmentConfined, size)
         return dstSegmentConfined
-    }
-
-    private fun getUnsafe(): Unsafe {
-        return Unsafe::class.getField("theUnsafe").get(null) as Unsafe
-    }
-
-    @Suppress("DEPRECATION")
-    private fun KClass<*>.getFieldOffset(name: String): Long {
-        return getField(name).let { unsafe.objectFieldOffset(it) }
-    }
-
-    private fun KClass<*>.getField(name: String): Field {
-        return java.getDeclaredField(name).apply { isAccessible = true }
-    }
-
-    private fun KClass<*>.getVarHandle(name: String, type: Class<Long>?): VarHandle {
-        return MethodHandles.privateLookupIn(java, MethodHandles.lookup()).findVarHandle(java, name, type)
-    }
-
-    private fun getNativeFuncHandle(name: String, descriptor: FunctionDescriptor): MethodHandle {
-        val linker = Linker.nativeLinker()
-        return linker.defaultLookup().find(name)
-            .map { linker.downcallHandle(it, descriptor) }
-            .orElseThrow()
     }
 }
 
