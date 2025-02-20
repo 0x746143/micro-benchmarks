@@ -49,6 +49,7 @@ jmh {
 
 registerBenchmarkTask("CoroutineDataTransfer")
 registerBenchmarkTask("NativeCall")
+registerBenchmarkTask("NativeRead")
 
 fun registerBenchmarkTask(className: String, vararg regex: String) {
     tasks.register<JavaExec>(className) {
