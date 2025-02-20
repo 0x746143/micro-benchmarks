@@ -29,8 +29,14 @@ tasks.test {
     )
 }
 
+val jdkVersion = 22
 kotlin {
-    jvmToolchain(22)
+    jvmToolchain(jdkVersion)
+}
+tasks.withType<JavaExec>().configureEach {
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(jdkVersion)
+    }
 }
 
 allOpen {
@@ -80,7 +86,7 @@ abstract class ExecCommand : DefaultTask() {
 tasks["compileJmhKotlin"].dependsOn("compileJmhNative")
 
 tasks.register<ExecCommand>("compileJmhNative") {
-    val javaHome: String = System.getProperty("java.home")
+    val jdkPath = javaToolchains.launcherFor(java.toolchain).get().metadata.installationPath
     val nativeDir = layout.buildDirectory.dir("native").get()
     val sourceDir = layout.projectDirectory.dir("src/jmh/c")
     val sourceFiles = fileTree(sourceDir) { include("**/*.c", "**/*.h") }
@@ -95,8 +101,8 @@ tasks.register<ExecCommand>("compileJmhNative") {
         libFiles.forEach { (outFile, srcFile) ->
             execCommand(
                 "gcc", "-shared", "-fPIC", "-O3", "-flto",
-                "-I$javaHome/include",
-                "-I$javaHome/include/linux",
+                "-I$jdkPath/include",
+                "-I$jdkPath/include/linux",
                 "-o", outFile, srcFile
             )
         }
